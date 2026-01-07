@@ -19,6 +19,13 @@ Where do they learn all this?`
     };
   }
 );
+export const demoError = inngest.createFunction(
+  { id: "demo-error" },
+  { event: "demo/error" },
+  async ({ event, step }) => {
+    throw new Error("Inngest Error : background Job failed !");
+  }
+);
 
 /* ---------------- DEMO GENERATE FUNCTION ---------------- */
 
@@ -55,6 +62,11 @@ export const demoGenerate = inngest.createFunction(
       return generateText({
         model: google("gemini-2.0-flash"),
         prompt: finalPrompt,
+         experimental_telemetry:{
+          isEnabled:true,
+          recordInputs:true,
+          recordOutputs:true
+        }
       });
     });
   }
