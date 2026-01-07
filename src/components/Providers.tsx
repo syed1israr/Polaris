@@ -24,7 +24,7 @@ export const Providers = ({ children } : { children : React.ReactNode} ) =>{
                 enableSystem
                 disableTransitionOnChange
                 >
-                     <Authenticated>|
+                     <Authenticated>
                         <UserButton/>
                         {children}
                      </Authenticated>

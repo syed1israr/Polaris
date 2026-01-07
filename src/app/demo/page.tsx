@@ -17,6 +17,18 @@ const page = () => {
         await fetch('/api/demo/background',{method:"POST"})
         setloading1(false);
     }
+
+    const handleClinetError = () => {
+        throw new Error("Client Error : Something went Wrong in the browser ");
+    }
+    const handleAPIError = () => {
+        throw new Error("Client Error : Something went Wrong in the browser ");
+    }
+    const handleInngestError = async() => {
+        await fetch("/demo/error",{method:"POST"})
+    }
+
+    
   return (
     <div className="p-8 space-x-4 ">
         <Button disabled={loading} onClick={handleer}>
@@ -24,6 +36,12 @@ const page = () => {
         </Button>
         <Button disabled={loading1} onClick={backgroundHandler}>
             { loading1 ? "loading" : "background"}
+        </Button>
+        <Button  variant={"destructive"} onClick={handleClinetError}>
+            Client Error
+        </Button>
+        <Button  variant={"destructive"} onClick={handleInngestError}>
+            Inngest Error
         </Button>
     </div>
   )

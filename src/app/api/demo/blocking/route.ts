@@ -8,6 +8,11 @@ export async function POST(){
    const res = await generateText({
   model: google('gemini-2.5-flash'),
   prompt: 'explain n8n code editor',
+  experimental_telemetry:{
+    isEnabled:true,
+    recordInputs:true,
+    recordOutputs:true
+  }
 });
 
 return Response.json({ res });
