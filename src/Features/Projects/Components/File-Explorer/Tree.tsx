@@ -117,6 +117,7 @@ const Tree = ({item,level, projectId}:{
             className='group flex items-center gap-1 h-5.5 hover:bg-accent/50 w-full'
             style={{ paddingLeft: getItemPadding(level!,false)}}
             onClick={() => setisOpen((p) => !p)}>
+                {folderContent}
             </button>
               { isOpen && (
                     <>
