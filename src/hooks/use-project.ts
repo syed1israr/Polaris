@@ -5,7 +5,9 @@ import { api } from "../../convex/_generated/api"
 import { Id } from "../../convex/_generated/dataModel"
 
 
-
+export const useProjectbyID = ( projectId : Id<"projects"> ) =>{
+    return useQuery(api.projects.getById,{ id: projectId})
+}
 
 export const useProject = () =>{
     return useQuery(api.projects.get)
@@ -44,3 +46,44 @@ export const useCreateProject = () =>{
         }
     )
 }
+
+export const useRenameProject = ({ projectId }: { projectId: Id<"projects"> }) => {
+  return useMutation(api.projects.rename).withOptimisticUpdate(
+    (localStorage, args) => {
+      const idToUpdate = args.id ?? projectId;
+
+      const existing = localStorage.getQuery(api.projects.getById, {
+        id: idToUpdate,
+      });
+
+      if (existing) {
+        localStorage.setQuery(
+          api.projects.getById,
+          { id: idToUpdate },
+          {
+            ...existing,
+            name: args.name,
+            updatedAt: Date.now(),
+          }
+        );
+      }
+
+      const existingProjects = localStorage.getQuery(api.projects.get);
+
+      if (existingProjects) {
+        localStorage.setQuery(
+          api.projects.get,
+          {},
+          existingProjects.map((m) =>
+            m._id === idToUpdate
+              ? { ...m, name: args.name, updatedAt: Date.now() }
+              : m
+          )
+        );
+      }
+    }
+  );
+};
+
+
+
