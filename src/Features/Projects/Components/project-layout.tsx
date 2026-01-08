@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Allotment } from "allotment";
-import "allotment/dist/style.css";
 
 import Navbar from "./Navbar";
 import { Id } from "../../../../convex/_generated/dataModel";
