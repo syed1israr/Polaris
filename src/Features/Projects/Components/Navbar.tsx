@@ -25,7 +25,7 @@ const Navbar = ({projectId} : { projectId : Id<"projects">}) => {
 
     const [isRenaming, setisRenaming] = useState(false);
     const [Name, setName] = useState("")
-    const handelstartRename = () =>{
+    const handleStartRename = () =>{
         if( !project ) return;
         setName(project.name);
         setisRenaming(true);
@@ -88,8 +88,8 @@ const handleBlur = () => {
             onKeyDown={handleKeyDown}
             className='text-sm bg-transparent text-foreground outline-none focus:ring-1 focus:ring-inset focus:ring-ring font-medium max-w-40 truncate'
             />) : (<BreadcrumbPage
-                onClick={handelstartRename}
-                className='text-sm curosr-pointer hover:text-primary font-medium 
+                onClick={handleStartRename}
+                className='text-sm cursor-pointer hover:text-primary font-medium 
                 max-w-40 truncate
                 '
                 >

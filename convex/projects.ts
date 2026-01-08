@@ -80,7 +80,7 @@ export const rename = mutation({
             throw new Error("Project not found");
         }
         if( project.ownerId !== identity.subject ){
-            throw new Error("Unathourized Access to this project")
+            throw new Error("Unauthorized Access to this project")
         }
 
        await ctx.db.patch("projects",args.id,{

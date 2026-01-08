@@ -4,12 +4,19 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { FaGithub } from "react-icons/fa";
+import { Allotment } from "allotment";
+import { FileExplorer } from "./File-Explorer";
 
 type TabProps = {
   label: string;
   isActive: boolean;
   onClick: () => void;
 };
+
+const MIN_SIDEBAR_WIDTH = 200;
+const MAX_SIDEBAR_WIDTH = 800;
+const DEFAULT_SIDEBAR_WIDTH = 350;
+const DEFAULT_MAIN_SIZE = 1000;
 
 const Tab = ({ label, isActive, onClick }: TabProps) => {
   return (
@@ -50,13 +57,28 @@ const ProjectIdView = ({ projectId }: { projectId: Id<"projects"> }) => {
         </div>
       </nav>
 
-      <div className="flex-1">
-        {activeTab === "code" && (
-          <div className="p-4">Code view for project {projectId}</div>
-        )}
-        {activeTab === "preview" && (
-          <div className="p-4">Preview view for project {projectId}</div>
-        )}
+      <div className="flex-1 relative">
+      <div className={cn("absolute inset-0", activeTab == "code" ? "visible" : "invisible")}>
+         <Allotment defaultSizes={[DEFAULT_SIDEBAR_WIDTH, DEFAULT_MAIN_SIZE]}>
+              <Allotment.Pane snap minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} preferredSize={DEFAULT_SIDEBAR_WIDTH}>
+                <FileExplorer projectId={projectId}/>
+              </Allotment.Pane>
+               <Allotment.Pane>
+                <p>Editor View</p>
+              </Allotment.Pane>
+            </Allotment>
+      </div>
+      <div className={cn("absolute inset-0", activeTab == "preview" ? "visible" : "invisible")}>
+         <Allotment defaultSizes={[DEFAULT_SIDEBAR_WIDTH, DEFAULT_MAIN_SIZE]}>
+              <Allotment.Pane snap minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} preferredSize={DEFAULT_SIDEBAR_WIDTH}>
+                <p>File Explorersad</p>
+              </Allotment.Pane>
+               <Allotment.Pane>
+                <p>Editor Viewads</p>
+              </Allotment.Pane>
+            </Allotment>
+      </div>
+        
       </div>
 
     </div>
