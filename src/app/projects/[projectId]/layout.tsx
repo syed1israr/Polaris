@@ -2,11 +2,11 @@ import ProjectIdLayout from '@/Features/Projects/Components/project-layout';
 import React from 'react'
 import { Id } from '../../../../convex/_generated/dataModel';
 
-const layout = async ({children,params}:{children:React.ReactNode, params:Promise<{projectId : Id<"projects">}>}) => {
+const layout = async ({children,params}:{children:React.ReactNode, params:Promise<{projectId : string}>}) => {
 const  { projectId } = await params;
     return (
    <ProjectIdLayout
-   projectId={projectId} >
+    projectId={projectId as Id<"projects">} >
     {children}
    </ProjectIdLayout>
   )
